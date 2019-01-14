@@ -7,10 +7,10 @@
 */
 
 #include <float.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <limits.h>
 
 #define G 2   		// Gap start penalty
 #define H 0.5  		// Gap continue penalty
@@ -53,14 +53,12 @@ void print_2d_arrays(double **C, double **D, double **I, int M, int N)
 	print_2d_array(I, M, N);
 }
 
-
 double gotoh_algorithm(char *sA, char *sB)
 {
 	double **C, **D, **I;
 	double costs[128][128];
 	double t;
 	int M, N, i, j;
-
 
 	M = strlen(sA) + 1;
 	N = strlen(sB) + 1;
@@ -94,7 +92,7 @@ double gotoh_algorithm(char *sA, char *sB)
 			D[i][j] = min2(D[i-1][j], C[i-1][j] + G) + H;
 
 			C[i][j] = min3(D[i][j], I[i][j], 
-								C[i-1][j-1] + cost_table(sA[i-1], sB[j-1], costs));
+						   C[i-1][j-1] + cost_table(sA[i-1], sB[j-1], costs));
 		}
 	}
 
@@ -181,5 +179,3 @@ double cost_table(char a, char b, double costs[][128])
 
 	return costs[a][b];
 }
-
-
